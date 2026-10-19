@@ -12,35 +12,69 @@ var wms_layers = [];
                 url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
             })
         });
-var format_MappaturaSistemaCostruttivo_1 = new ol.format.GeoJSON();
-var features_MappaturaSistemaCostruttivo_1 = format_MappaturaSistemaCostruttivo_1.readFeatures(json_MappaturaSistemaCostruttivo_1, 
+
+        var lyr_GoogleSatellite_1 = new ol.layer.Tile({
+            'title': 'Google Satellite',
+            'type':'base',
+            'opacity': 1.000000,
+            
+            
+            source: new ol.source.XYZ({
+            attributions: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+                url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
+            })
+        });
+var format_MappaturaSistemaCostruttivo_2 = new ol.format.GeoJSON();
+var features_MappaturaSistemaCostruttivo_2 = format_MappaturaSistemaCostruttivo_2.readFeatures(json_MappaturaSistemaCostruttivo_2, 
             {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
-var jsonSource_MappaturaSistemaCostruttivo_1 = new ol.source.Vector({
+var jsonSource_MappaturaSistemaCostruttivo_2 = new ol.source.Vector({
     attributions: ' ',
 });
-jsonSource_MappaturaSistemaCostruttivo_1.addFeatures(features_MappaturaSistemaCostruttivo_1);
-var lyr_MappaturaSistemaCostruttivo_1 = new ol.layer.Vector({
+jsonSource_MappaturaSistemaCostruttivo_2.addFeatures(features_MappaturaSistemaCostruttivo_2);
+var lyr_MappaturaSistemaCostruttivo_2 = new ol.layer.Vector({
                 declutter: false,
-                source:jsonSource_MappaturaSistemaCostruttivo_1, 
-                style: style_MappaturaSistemaCostruttivo_1,
+                source:jsonSource_MappaturaSistemaCostruttivo_2, 
+                style: style_MappaturaSistemaCostruttivo_2,
                 popuplayertitle: 'Mappatura Sistema Costruttivo',
                 interactive: true,
     title: 'Mappatura Sistema Costruttivo<br />\
-    <img src="styles/legend/MappaturaSistemaCostruttivo_1_0.png" /> ?<br />\
-    <img src="styles/legend/MappaturaSistemaCostruttivo_1_1.png" /> Calcestruzzo Armato<br />\
-    <img src="styles/legend/MappaturaSistemaCostruttivo_1_2.png" /> Misto<br />\
-    <img src="styles/legend/MappaturaSistemaCostruttivo_1_3.png" /> Muratura<br />\
-    <img src="styles/legend/MappaturaSistemaCostruttivo_1_4.png" /> <br />' });
+    <img src="styles/legend/MappaturaSistemaCostruttivo_2_0.png" /> ?<br />\
+    <img src="styles/legend/MappaturaSistemaCostruttivo_2_1.png" /> Calcestruzzo Armato<br />\
+    <img src="styles/legend/MappaturaSistemaCostruttivo_2_2.png" /> Misto<br />\
+    <img src="styles/legend/MappaturaSistemaCostruttivo_2_3.png" /> Muratura<br />\
+    <img src="styles/legend/MappaturaSistemaCostruttivo_2_4.png" /> <br />' });
+var format_Catastale_3 = new ol.format.GeoJSON();
+var features_Catastale_3 = format_Catastale_3.readFeatures(json_Catastale_3, 
+            {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
+var jsonSource_Catastale_3 = new ol.source.Vector({
+    attributions: ' ',
+});
+jsonSource_Catastale_3.addFeatures(features_Catastale_3);
+cluster_Catastale_3 = new ol.source.Cluster({
+  distance: 30,
+  source: jsonSource_Catastale_3
+});
+var lyr_Catastale_3 = new ol.layer.Vector({
+                declutter: false,
+                source:cluster_Catastale_3, 
+                style: style_Catastale_3,
+                popuplayertitle: 'Catastale',
+                interactive: true,
+                title: '<img src="styles/legend/Catastale_3.png" /> Catastale'
+            });
 var group_OlivetoScammacca = new ol.layer.Group({
-                                layers: [lyr_MappaturaSistemaCostruttivo_1,],
+                                layers: [lyr_MappaturaSistemaCostruttivo_2,lyr_Catastale_3,],
                                 fold: 'open',
                                 title: 'Oliveto Scammacca'});
 
-lyr_OSMStandard_0.setVisible(true);lyr_MappaturaSistemaCostruttivo_1.setVisible(true);
-var layersList = [lyr_OSMStandard_0,group_OlivetoScammacca];
-lyr_MappaturaSistemaCostruttivo_1.set('fieldAliases', {'fid': 'fid', 'N.': 'N.', 'Destinazione d\'uso': 'Destinazione d\'uso', 'Sistema Costruttivo': 'Sistema Costruttivo', 'N. Piani': 'N. Piani', 'Interpiano': 'Interpiano', 'Altezza Totale': 'Altezza Totale', 'Superficie': 'Superficie', 'Volume': 'Volume', });
-lyr_MappaturaSistemaCostruttivo_1.set('fieldImages', {'fid': 'TextEdit', 'N.': 'Range', 'Destinazione d\'uso': 'TextEdit', 'Sistema Costruttivo': 'TextEdit', 'N. Piani': 'TextEdit', 'Interpiano': 'TextEdit', 'Altezza Totale': 'TextEdit', 'Superficie': 'TextEdit', 'Volume': 'TextEdit', });
-lyr_MappaturaSistemaCostruttivo_1.set('fieldLabels', {'fid': 'hidden field', 'N.': 'hidden field', 'Destinazione d\'uso': 'hidden field', 'Sistema Costruttivo': 'inline label - always visible', 'N. Piani': 'inline label - always visible', 'Interpiano': 'hidden field', 'Altezza Totale': 'inline label - always visible', 'Superficie': 'inline label - visible with data', 'Volume': 'inline label - visible with data', });
-lyr_MappaturaSistemaCostruttivo_1.on('precompose', function(evt) {
+lyr_OSMStandard_0.setVisible(true);lyr_GoogleSatellite_1.setVisible(true);lyr_MappaturaSistemaCostruttivo_2.setVisible(true);lyr_Catastale_3.setVisible(true);
+var layersList = [lyr_OSMStandard_0,lyr_GoogleSatellite_1,group_OlivetoScammacca];
+lyr_MappaturaSistemaCostruttivo_2.set('fieldAliases', {'fid': 'fid', 'N.': 'N.', 'Destinazione d\'uso': 'Destinazione d\'uso', 'Sistema Costruttivo': 'Sistema Costruttivo', 'N. Piani': 'N. Piani', 'Interpiano': 'Interpiano', 'H (m)': 'H (m)', 'Superficie (m²)': 'Superficie (m²)', 'Volume (m³)': 'Volume (m³)', 'Catastale': 'Catastale', });
+lyr_Catastale_3.set('fieldAliases', {'id': 'id', 'Link': 'Link', });
+lyr_MappaturaSistemaCostruttivo_2.set('fieldImages', {'fid': 'TextEdit', 'N.': 'Range', 'Destinazione d\'uso': 'TextEdit', 'Sistema Costruttivo': 'TextEdit', 'N. Piani': 'TextEdit', 'Interpiano': 'Range', 'H (m)': 'Range', 'Superficie (m²)': 'Range', 'Volume (m³)': 'Range', 'Catastale': 'CheckBox', });
+lyr_Catastale_3.set('fieldImages', {'id': 'TextEdit', 'Link': 'TextEdit', });
+lyr_MappaturaSistemaCostruttivo_2.set('fieldLabels', {'fid': 'hidden field', 'N.': 'hidden field', 'Destinazione d\'uso': 'inline label - always visible', 'Sistema Costruttivo': 'inline label - always visible', 'N. Piani': 'inline label - always visible', 'Interpiano': 'hidden field', 'H (m)': 'inline label - always visible', 'Superficie (m²)': 'inline label - always visible', 'Volume (m³)': 'inline label - always visible', 'Catastale': 'inline label - always visible', });
+lyr_Catastale_3.set('fieldLabels', {'id': 'hidden field', 'Link': 'inline label - always visible', });
+lyr_Catastale_3.on('precompose', function(evt) {
     evt.context.globalCompositeOperation = 'normal';
 });
